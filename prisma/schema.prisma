@@ -1,0 +1,236 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../lib/generated/prisma"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model T_Scanner {
+  id          Int     @id(map: "PK_T_Scanner") @default(autoincrement())
+  Batch       String? @db.NVarChar(50)
+  Width       String? @db.NVarChar(50)
+  Length      String? @db.NVarChar(50)
+  Thickness   String? @db.NVarChar(50)
+  Consistency Int?
+  UPID        String? @db.NChar(50)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_Boardlibrary {
+  Id               Int       @default(autoincrement())
+  Boardcode        String?   @db.NVarChar(50)
+  Material         String?   @db.NVarChar(50)
+  Length           Float?    @db.Real
+  Width            Float?    @db.Real
+  Thickness        Float?    @db.Real
+  Boardtype        Int?
+  Minstock         Int?      @default(10, map: "DF_T_CCHS_Boardlibrary_Minstock")
+  Shelflife        Int?      @default(30, map: "DF_T_CCHS_Boardlibrary_Shelflife")
+  Description      String?   @db.NVarChar(250)
+  CreationDate     DateTime? @db.DateTime
+  ModificationDate DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_ErrorMessages {
+  Id Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_GantryPosition {
+  Id       Int
+  X        Float?
+  Y        Float?
+  R        Float?
+  HasBoard Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_HandlingItems {
+  Id Int @default(autoincrement())
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_JobList {
+  Id               Int       @default(autoincrement())
+  JobId            String?   @db.NVarChar(50)
+  StackId          String?   @db.NVarChar(50)
+  Material         String?   @db.NVarChar(50)
+  JobType          Int?
+  TargetType       Int?
+  SourcePosition   String?   @db.NVarChar(50)
+  TargetPosition   String?   @db.NVarChar(50)
+  TaskQuantity     Int?
+  Sort             Int?
+  State            Int?
+  CreationDate     DateTime? @db.DateTime
+  ModificationDate DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_Position {
+  Id               Int       @default(autoincrement())
+  Positioncode     String?   @db.NVarChar(50)
+  Length           Float?    @db.Real
+  Width            Float?    @db.Real
+  Baseheight       Float?    @db.Real
+  Maxheight        Float?    @db.Real
+  Area             String?   @default("N'B'", map: "DF_T_CCHS_Position_Area") @db.NVarChar(50)
+  Xposition        Float?    @db.Real
+  Yposition        Float?    @db.Real
+  Xoffset          Float?    @db.Real
+  Yoffset          Float?    @db.Real
+  Positiontype     Int?      @default(3, map: "DF_T_CCHS_Position_Positiontype")
+  Rotate_Angle     Int?
+  Description      String?   @db.NVarChar(250)
+  CreationDate     DateTime? @db.DateTime
+  ModificationDate DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_StackDetail {
+  Id               Int       @default(autoincrement())
+  JobId            String?   @db.NVarChar(50)
+  StackId          String?   @db.NVarChar(50)
+  StackType        Int?
+  Boardcode        String?   @db.NVarChar(50)
+  Material         String?   @db.NVarChar(50)
+  Length           Float?    @db.Real
+  Width            Float?    @db.Real
+  Thickness        Float?    @db.Real
+  BoardType        Int?
+  Layer            Int?
+  Orientation      Int?
+  OptimizationRun  String?   @db.NVarChar(50)
+  OptimizationPlan String?   @db.NVarChar(50)
+  BoardQuantity    Int?
+  State            Int?
+  CreationDate     DateTime? @db.DateTime
+  ModificationDate DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_StackInfo {
+  Id               Int       @default(autoincrement())
+  JobId            String?   @db.NVarChar(50)
+  StackId          String?   @db.NVarChar(50)
+  IsRainbow        Int?
+  BoardQuantity    Int?
+  TransferState    Int?
+  CreationDate     DateTime? @db.DateTime
+  ModificationDate DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_Stock {
+  Id               Int       @default(autoincrement())
+  Positioncode     String?   @db.NVarChar(50)
+  Area             String?   @db.NVarChar(50)
+  StackId          String?   @db.NVarChar(50)
+  Material         String?   @db.NVarChar(50)
+  ActualQuantity   Int?      @default(0, map: "DF_T_CCHS_Stock_ActualQuantity")
+  VirtualQuantity  Int?      @default(0, map: "DF_T_CCHS_Stock_VirtualQuantity")
+  ActualHight      Float?    @default(0, map: "DF_T_CCHS_Stock_ActualHight") @db.Real
+  VirtualHight     Float?    @default(0, map: "DF_T_CCHS_Stock_VirtualHight") @db.Real
+  State            Int?      @default(0, map: "DF_T_CCHS_Stock_State")
+  Description      String?   @db.NVarChar(250)
+  CreationDate     DateTime? @db.DateTime
+  ModificationDate DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_StockDetail {
+  Id               Int       @default(autoincrement())
+  Positioncode     String?   @db.NVarChar(50)
+  StackId          String?   @db.NVarChar(50)
+  Boardcode        String?   @db.NVarChar(50)
+  Material         String?   @db.NVarChar(50)
+  Layer            Int?
+  State            Int?
+  CreationDate     DateTime? @db.DateTime
+  ModificationDate DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_StorageInfo {
+  Id               Int       @default(autoincrement())
+  StorageCode      String?   @db.NVarChar(50)
+  StorageHeight    Int
+  Storagewidth     Int
+  Totalcapacity    Int?
+  Usedcapicty      Int?
+  Area             String    @db.NVarChar(50)
+  Xposition        Float     @db.Real
+  Yposition        Float     @db.Real
+  Storagetype      Int
+  Description      String?   @db.NVarChar(250)
+  CreationDate     DateTime? @db.DateTime
+  ModificationDate DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_TargetTypeConfig {
+  Id               Int       @default(autoincrement())
+  Number           Int?
+  Target           String?   @db.NVarChar(50)
+  CreationDate     DateTime? @db.DateTime
+  ModificationDate DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_TaskDetail {
+  Id               Int       @default(autoincrement())
+  JobId            String?   @db.NVarChar(50)
+  StackId          String?   @db.NVarChar(50)
+  StackType        Int?
+  Material         String?   @db.NVarChar(50)
+  Boardcode        String?   @db.NVarChar(50)
+  BoardType        Int?
+  SourcePosition   String?   @db.NVarChar(50)
+  TargetPosition   String?   @db.NVarChar(50)
+  SourcePositionH  Float?    @db.Real
+  TargetPositionH  Float?    @db.Real
+  Layer            Int?
+  Orientation      Int?
+  Tasktype         Int?
+  TransferState    Int?      @default(0, map: "DF_T_CCHS_TaskDetail_TransferState")
+  CreationDate     DateTime? @db.DateTime
+  ModificationDate DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_CCHS_TransHistory {
+  Id Int @default(autoincrement())
+
+  @@ignore
+}
