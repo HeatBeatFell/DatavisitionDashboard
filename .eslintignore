@@ -1,0 +1,17 @@
+# 忽略生成的文件
+node_modules
+.next
+lib/generated
+prisma/generated
+public
+build
+dist
+out
+*.d.ts
+next-env.d.ts
+
+# 忽略 Prisma 生成的文件
+prisma/client
+**/prisma/runtime
+**/prisma/wasm*.js
+**/prisma/*.wasm 

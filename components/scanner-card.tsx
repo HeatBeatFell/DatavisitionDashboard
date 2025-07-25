@@ -8,15 +8,26 @@ import { useScannerData } from "@/hooks/use-scanner";
 import { useEffect, useState } from "react";
 
 export function ScannerCards() {
-  const { data, isLoading } = useScannerData();
+  // const { data, isLoading } = useScannerData();
+  const data = {
+    Batch: "GP20250725001",
+    UPID: "UPID20250725001",
+    Length: 2900,
+    Width: 300,
+    Thickness: 18,
+    Consistency: true,
+  };
+  const isLoading = false;  
   const { Batch, UPID, Length, Width, Thickness, Consistency } = data;
   const [isConcordance,setIsConcordance] = useState(true);
 
-  useEffect(() => {
-    if (Consistency !== undefined) {
-      setIsConcordance(Consistency ? true : false);
-    }
-  }, [Consistency]);
+  // useEffect(() => {
+  //   if (Consistency !== undefined) {
+  //     setIsConcordance(Consistency ? true : false);
+  //   }
+  // }, [Consistency]);
+
+
 
   useEffect(() => {
     if (!isConcordance) {
