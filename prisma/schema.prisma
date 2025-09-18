@@ -1,7 +1,6 @@
 generator client {
-  provider        = "prisma-client-js"
-  output          = "../lib/generated/prisma"
-  previewFeatures = ["driverAdapters"]
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
 }
 
 datasource db {
@@ -9,71 +8,467 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Edge2CNC_Outfeed {
+  Id               Int       @default(autoincrement())
+  Reference        String?   @db.NVarChar(32)
+  State            Int?
+  CreationDate     DateTime? @db.DateTime
+  ModificationDate DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model HandlingItems {
+  Id               BigInt   @default(autoincrement())
+  Reference        String   @db.NVarChar(50)
+  Length           Decimal  @db.Decimal(5, 1)
+  Width            Decimal  @db.Decimal(5, 1)
+  Thickness        Decimal  @db.Decimal(5, 1)
+  WorkcenterCode   String   @db.NVarChar(50)
+  FixedEdge        Int
+  ProgramFileName  String   @db.NVarChar(256)
+  Mode             Int
+  Batch            String?  @db.NVarChar(50)
+  Order            String?  @db.NVarChar(50)
+  Stack            String?  @db.NVarChar(50)
+  Package          String?  @db.NVarChar(50)
+  Xpos             Decimal? @db.Decimal(5, 1)
+  Ypos             Decimal? @db.Decimal(5, 1)
+  Zpos             Decimal? @db.Decimal(5, 1)
+  RotationAngle    Int?
+  LED_Number       Int?
+  LED_Color        Int?
+  TransferState    Int
+  CreationDate     DateTime @db.DateTime
+  ModificationDate DateTime @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Mes2CncExchange {
+  Id Int @default(autoincrement())
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_BasicInfo {
+  Id       Int     @default(autoincrement())
+  Type     String? @db.NVarChar(50)
+  Value    String? @db.NVarChar(50)
+  IP       String? @db.NVarChar(50)
+  Port     Int?    @default(6000, map: "DF_T_BasicInfo_Port")
+  Describe String? @db.NVarChar(250)
+
+  @@ignore
+}
+
+model T_BoardInfo {
+  Id                Int       @id(map: "PK_T_BoardInfo_1") @default(autoincrement())
+  UPID              String?   @db.NVarChar(50)
+  BatchId           String?   @db.NVarChar(50)
+  OrderId           String?   @db.NVarChar(50)
+  OrderPackageCount Int?
+  Package           String?   @db.NVarChar(50)
+  Sequence          Int?
+  Length            Float?    @db.Real
+  Width             Float?    @db.Real
+  Thickness         Float?    @db.Real
+  MprName           String?   @db.NVarChar(250)
+  Feature           String?   @db.NVarChar(50)
+  ZeroLine          String?   @db.NVarChar(50)
+  MachineNo         String?   @db.NVarChar(50)
+  Mode              Int?
+  ColorEdgeBelt     String?   @db.NVarChar(50)
+  Demand_EB         Int?
+  Demand_DR         Int?
+  Demand_Rotate     Int?
+  Demand_PA         Int?
+  PA_XCenter        Float?    @db.Real
+  PA_YCenter        Float?    @db.Real
+  PA_ZCenter        Float?    @db.Real
+  PA_Angle          Float?    @default(0, map: "DF_T_BoardInfo_PA_Angle") @db.Real
+  Query_Package     Int?
+  NeedStack         Int?
+  GroupNo           String?   @db.NVarChar(60)
+  State             Int?
+  CreationDate      DateTime? @db.DateTime
+  ModificationDate  DateTime? @db.DateTime
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_DirectionConfig {
+  Id        Int     @default(autoincrement())
+  SourcePos String? @db.NVarChar(50)
+  TargetPos String? @db.NVarChar(50)
+  Direction Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_ErrorMessage {
+  Id               BigInt    @default(autoincrement())
+  Area             String?   @db.VarChar(50)
+  Type             String?   @db.NVarChar(50)
+  ErrorNumber      Int?
+  Message          String?   @db.NVarChar(500)
+  State            Int
+  CreationDate     DateTime? @db.DateTime
+  ModificationDate DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_GreenHubLocationInfo {
+  Id                  Int     @default(autoincrement())
+  Section             String? @db.NVarChar(50)
+  Position            String? @db.NVarChar(50)
+  Location            String? @db.NVarChar(50)
+  Area                String? @db.NVarChar(50)
+  Type                String? @db.NVarChar(50)
+  CouplingWay         String? @db.NVarChar(50)
+  NextPosition        String? @db.NVarChar(50)
+  ComponentsCoor_Left Float?  @db.Real
+  ComponentsCoor_Top  Float?  @db.Real
+  PartsCoor_Left      Float?  @db.Real
+  PartsCoor_Top       Float?  @db.Real
+  PartsCoor_ZIndex    Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_InformationConfig {
+  Id                     Int       @default(autoincrement())
+  powerTouch             String?   @db.NVarChar(50)
+  HomagGroupBaseUI       String?   @db.NVarChar(50)
+  EquipmentNumber        String?   @db.NVarChar(50)
+  ServerAddress          String?   @db.NVarChar(50)
+  DataBaseServer         String?   @db.NVarChar(50)
+  DataBaseName           String?   @db.NVarChar(50)
+  powerControl           String?   @db.NVarChar(50)
+  MainOperatingInterface String?   @db.NVarChar(50)
+  Version                String?   @db.NVarChar(50)
+  Title                  String?   @db.NVarChar(50)
+  Describe               String?   @db.NVarChar(500)
+  licenses               String?   @db.NVarChar(500)
+  CreationDate           DateTime? @db.DateTime
+  ModificationDate       DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_LocationInfo {
+  Id                  Int     @default(autoincrement())
+  Section             String? @db.NVarChar(50)
+  Position            String? @db.NVarChar(50)
+  Location            String? @db.NVarChar(50)
+  Area                String? @db.NVarChar(50)
+  Type                String? @db.NVarChar(50)
+  CouplingWay         String? @db.NVarChar(50)
+  NextPosition        String? @db.NVarChar(50)
+  ComponentsCoor_Left Float?  @db.Real
+  ComponentsCoor_Top  Float?  @db.Real
+  PartsCoor_Left      Float?  @db.Real
+  PartsCoor_Top       Float?  @db.Real
+  PartsCoor_ZIndex    Int?    @default(10000, map: "DF_T_LocationInfo_PartsCoor_ZIndex")
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_MachineInfo {
+  Id                Int       @default(autoincrement())
+  MachineNo         String?   @db.NVarChar(50)
+  IP                String?   @db.NVarChar(50)
+  Port              Int?
+  AvailableChannels String?   @db.NVarChar(50)
+  State             Int?
+  CreationDate      DateTime? @db.DateTime
+  ModificationDate  DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_MachinePostionInfo {
+  Id                   Int       @default(autoincrement())
+  MachinePostion       String?   @db.NVarChar(50)
+  MachineHeight        Float
+  MachineWidth         Float
+  Xposition            Float
+  Yposition            Float
+  MachineName          String?   @db.NVarChar(50)
+  MachineImagePath     String?   @db.NVarChar(50)
+  MachineImageOpactity Float
+  Area                 String?   @db.NVarChar(50)
+  Description          String?   @db.NVarChar(50)
+  CreationDate         DateTime? @db.DateTime
+  ModificationDate     DateTime? @db.DateTime
+  Angle                Float?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_MprInfo {
+  Id                Int       @default(autoincrement())
+  MprName           String?   @db.NVarChar(50)
+  Process_Length    Float?    @db.Real
+  Process_Width     Float?    @db.Real
+  Process_Thickness Float?    @db.Real
+  Process_Quantity  Int?
+  Feature           String?   @db.NVarChar(50)
+  CreationTime      DateTime? @db.DateTime
+  ModificationTime  DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_Nesting_BatchInfo {
+  Id           Int       @default(autoincrement())
+  BatchId      String?   @db.NVarChar(50)
+  BoardsAmount Int?
+  PartsAmount  Int?
+  State        Int?
+  CreationTime DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_Nesting_BoardInfo {
+  Id           Int       @default(autoincrement())
+  BatchId      String?   @db.NVarChar(50)
+  BoardId      String?   @db.NVarChar(50)
+  MprName      String?   @db.NVarChar(50)
+  Length       Float?    @db.Real
+  Width        Float?    @db.Real
+  Thickness    Float?    @db.Real
+  MaterialName String?   @db.NVarChar(50)
+  PartsAmount  Int?
+  State        Int?
+  StartDate    DateTime? @db.DateTime
+  EndDate      DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_Nesting_LabelTask {
+  Id          Int       @default(autoincrement())
+  BatchId     String?   @db.NVarChar(50)
+  MprName     String?   @db.NVarChar(50)
+  Reference   String?   @db.NVarChar(50)
+  Number      Int?
+  Title       String?   @db.NVarChar(50)
+  State       Int?
+  StartTime   DateTime? @db.DateTime
+  EndTime     DateTime? @db.DateTime
+  BoardInfoId Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_Nesting_PartInfo {
+  Id             Int       @default(autoincrement())
+  MprName        String?   @db.NVarChar(50)
+  BatchId        String?   @db.NVarChar(50)
+  BoardId        String?   @db.NVarChar(50)
+  PartId         String?   @db.NVarChar(50)
+  Reference      String?   @db.NVarChar(50)
+  BoardLength    Float?    @db.Real
+  BoardWidth     Float?    @db.Real
+  BoardThickness Float?    @db.Real
+  LabelTitle     String?   @db.NVarChar(50)
+  PartPos_X      Float?    @db.Real
+  PartPos_Y      Float?    @db.Real
+  Rotation       Int?
+  PartLength     Float?    @db.Real
+  PartWidth      Float?    @db.Real
+  Number         Int
+  OffcutFiag     Int?
+  State          Int?      @default(0, map: "DF_T_Nesting_PartInfo_State")
+  CreationTime   DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_Nesting_PnxInfo {
+  Id                   Int     @default(autoincrement())
+  Run                  String? @db.NVarChar(50)
+  PartId               Int?
+  PartName             String? @db.NVarChar(50)
+  PartMaterial         Float?  @db.Real
+  PartLength           Float?  @db.Real
+  PartWidth            Float?  @db.Real
+  PartRequiredQuantity Int?
+  Grain                Int?    @default(0, map: "DF_T_Nesting_PnxInfo_Default_1")
+  Edge_MaterialBack    String? @default("0", map: "DF_T_Nesting_PnxInfo_Default_2") @db.NVarChar(50)
+  Edge_MaterialFront   String? @default("0", map: "DF_T_Nesting_PnxInfo_Default_3") @db.NVarChar(50)
+  Edge_MaterialLeft    String? @default("0", map: "DF_T_Nesting_PnxInfo_Default_4") @db.NVarChar(50)
+  Edge_MaterialRight   String? @default("0", map: "DF_T_Nesting_PnxInfo_Default_5") @db.NVarChar(50)
+  PartNumberOfLabels   Int?    @default(0, map: "DF_T_Nesting_PnxInfo_Default_6")
+  PartFinishedLength   String? @default("0", map: "DF_T_Nesting_PnxInfo_Default_7") @db.NVarChar(250)
+  PartFinishedWidth    String? @default("", map: "DF_T_Nesting_PnxInfo_Empty_1") @db.NVarChar(250)
+  AddInfo_001          String? @db.NVarChar(250)
+  AddInfo_002          String? @db.NVarChar(250)
+  AddInfo_003          String? @default("1", map: "DF_T_Nesting_PnxInfo_Default_8") @db.NVarChar(250)
+  AddInfo_004          String? @default("", map: "DF_T_Nesting_PnxInfo_Empty_3") @db.NVarChar(250)
+  AddInfo_005          String? @db.NVarChar(250)
+  AddInfo_006          String? @db.NVarChar(250)
+  AddInfo_007          String? @db.NVarChar(250)
+  AddInfo_008          String? @db.NVarChar(250)
+  AddInfo_009          String? @db.NVarChar(250)
+  AddInfo_010          String? @db.NVarChar(250)
+  AddInfo_011          String? @db.NVarChar(250)
+  AddInfo_012          String? @db.NVarChar(250)
+  AddInfo_013          String? @db.NVarChar(250)
+  AddInfo_014          String? @db.NVarChar(250)
+  AddInfo_015          String? @db.NVarChar(250)
+  AddInfo_016          String? @db.NVarChar(250)
+  AddInfo_017          String? @db.NVarChar(250)
+  AddInfo_018          String? @db.NVarChar(250)
+  AddInfo_019          String? @db.NVarChar(250)
+  AddInfo_020          String? @db.NVarChar(250)
+  AddInfo_021          String? @db.NVarChar(250)
+  AddInfo_022          String? @db.NVarChar(250)
+  AddInfo_023          String? @db.NVarChar(250)
+  AddInfo_024          String? @db.NVarChar(250)
+  AddInfo_025          String? @db.NVarChar(250)
+  AddInfo_026          String? @db.NVarChar(250)
+  AddInfo_027          String? @db.NVarChar(250)
+  AddInfo_028          String? @db.NVarChar(250)
+  AddInfo_029          String? @db.NVarChar(250)
+  AddInfo_030          String? @db.NVarChar(250)
+  AddInfo_031          String? @db.NVarChar(250)
+  AddInfo_032          String? @db.NVarChar(250)
+  AddInfo_033          String? @db.NVarChar(250)
+  AddInfo_034          String? @db.NVarChar(250)
+  AddInfo_035          String? @db.NVarChar(250)
+  AddInfo_036          String? @db.NVarChar(250)
+  AddInfo_037          String? @db.NVarChar(250)
+  AddInfo_038          String? @db.NVarChar(250)
+  AddInfo_039          String? @db.NVarChar(250)
+  AddInfo_040          String? @db.NVarChar(250)
+  AddInfo_041          String? @db.NVarChar(250)
+  AddInfo_042          String? @db.NVarChar(250)
+  AddInfo_043          String? @db.NVarChar(250)
+  AddInfo_044          String? @db.NVarChar(250)
+  AddInfo_045          String? @db.NVarChar(250)
+  AddInfo_046          String? @db.NVarChar(250)
+  AddInfo_047          String? @db.NVarChar(250)
+  AddInfo_048          String? @db.NVarChar(250)
+  AddInfo_049          String? @db.NVarChar(250)
+  AddInfo_050          String? @db.NVarChar(250)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_PositionConfig {
+  Id       Int     @default(autoincrement())
+  Position String? @db.NVarChar(50)
+  Section  String? @db.NVarChar(50)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_ProcessCache {
+  Id        Int     @default(autoincrement())
+  MachineNo String? @db.NVarChar(50)
+  Channel   String? @db.NVarChar(50)
+  Count     Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_ProjectOrder {
+  Id         Int       @default(autoincrement())
+  Reference  String?   @db.NVarChar(50)
+  Length     Float?    @db.Real
+  Width      Float?    @db.Real
+  Thickness  Float?    @db.Real
+  MprName    String?   @db.NVarChar(100)
+  State      Int?
+  CreateTime DateTime? @db.DateTime
+  UpdateTime DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_RouteConfig {
+  Id             Int     @default(autoincrement())
+  Route          String? @db.NVarChar(500)
+  StartPosition  String? @db.NVarChar(50)
+  TargetPosition String? @db.NVarChar(50)
+  Channel        String? @db.NVarChar(50)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model T_Scanner {
-  id          Int     @id(map: "PK_T_Scanner") @default(autoincrement())
+  id          Int     @default(autoincrement())
   Batch       String? @db.NVarChar(50)
   Width       String? @db.NVarChar(50)
   Length      String? @db.NVarChar(50)
   Thickness   String? @db.NVarChar(50)
   Consistency Int?
   UPID        String? @db.NChar(50)
+
+  @@ignore
+}
+
+model T_ScanRecords_Boards {
+  Id           Int       @id(map: "PK_T_ScanRecords_Boards") @default(autoincrement())
+  Upi          String?   @db.NVarChar(50)
+  Batch        String?   @db.NVarChar(50)
+  StackId      String?   @db.NVarChar(50)
+  Station      String?   @db.NVarChar(50)
+  Query_Reject Int?
+  Query_UpLoad Int?
+  ScanTime     DateTime? @db.DateTime
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_Boardlibrary {
+model T_SectionConfig {
+  Id        Int     @default(autoincrement())
+  Section   String? @db.NVarChar(50)
+  Direction String? @db.NVarChar(50)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_SendRecords_Mpr {
+  Id        Int       @default(autoincrement())
+  Reference String?   @db.NVarChar(50)
+  MprFlag   Int?
+  SendTime  DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model T_SettingsConfig {
   Id               Int       @default(autoincrement())
-  Boardcode        String?   @db.NVarChar(50)
-  Material         String?   @db.NVarChar(50)
-  Length           Float?    @db.Real
-  Width            Float?    @db.Real
-  Thickness        Float?    @db.Real
-  Boardtype        Int?
-  Minstock         Int?      @default(10, map: "DF_T_CCHS_Boardlibrary_Minstock")
-  Shelflife        Int?      @default(30, map: "DF_T_CCHS_Boardlibrary_Shelflife")
-  Description      String?   @db.NVarChar(250)
-  CreationDate     DateTime? @db.DateTime
-  ModificationDate DateTime? @db.DateTime
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_ErrorMessages {
-  Id Int?
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_GantryPosition {
-  Id       Int
-  X        Float?
-  Y        Float?
-  R        Float?
-  HasBoard Int?
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_HandlingItems {
-  Id Int @default(autoincrement())
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_JobList {
-  Id               Int       @default(autoincrement())
-  JobId            String?   @db.NVarChar(50)
-  StackId          String?   @db.NVarChar(50)
-  Material         String?   @db.NVarChar(50)
-  JobType          Int?
-  TargetType       Int?
-  SourcePosition   String?   @db.NVarChar(50)
-  TargetPosition   String?   @db.NVarChar(50)
-  TaskQuantity     Int?
-  Sort             Int?
+  Ip               String?   @db.NVarChar(50)
+  Port             Int?
+  Topic            String?   @db.NVarChar(50)
+  Describe         String?   @db.NVarChar(50)
   State            Int?
   CreationDate     DateTime? @db.DateTime
   ModificationDate DateTime? @db.DateTime
@@ -82,155 +477,51 @@ model T_CCHS_JobList {
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_Position {
-  Id               Int       @default(autoincrement())
-  Positioncode     String?   @db.NVarChar(50)
-  Length           Float?    @db.Real
-  Width            Float?    @db.Real
-  Baseheight       Float?    @db.Real
-  Maxheight        Float?    @db.Real
-  Area             String?   @default("N'B'", map: "DF_T_CCHS_Position_Area") @db.NVarChar(50)
-  Xposition        Float?    @db.Real
-  Yposition        Float?    @db.Real
-  Xoffset          Float?    @db.Real
-  Yoffset          Float?    @db.Real
-  Positiontype     Int?      @default(3, map: "DF_T_CCHS_Position_Positiontype")
-  Rotate_Angle     Int?
-  Description      String?   @db.NVarChar(250)
-  CreationDate     DateTime? @db.DateTime
-  ModificationDate DateTime? @db.DateTime
+model T_TransHistoryRecords {
+  Id            Int       @default(autoincrement())
+  Reference     String?   @db.NVarChar(50)
+  Location      String?   @db.NVarChar(50)
+  State         Int?      @default(10, map: "DF_T_TransHistoryRecords_State")
+  Area          String?   @default("10", map: "DF_T_TransHistoryRecords_Area") @db.NVarChar(50)
+  FinishedTime  DateTime? @db.DateTime
+  ArrivalTime   DateTime? @db.DateTime
+  DepartureTime DateTime? @db.DateTime
+  ReleaseTime   DateTime? @db.DateTime
 
   @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_StackDetail {
-  Id               Int       @default(autoincrement())
-  JobId            String?   @db.NVarChar(50)
-  StackId          String?   @db.NVarChar(50)
-  StackType        Int?
-  Boardcode        String?   @db.NVarChar(50)
-  Material         String?   @db.NVarChar(50)
-  Length           Float?    @db.Real
-  Width            Float?    @db.Real
-  Thickness        Float?    @db.Real
-  BoardType        Int?
-  Layer            Int?
-  Orientation      Int?
-  OptimizationRun  String?   @db.NVarChar(50)
-  OptimizationPlan String?   @db.NVarChar(50)
-  BoardQuantity    Int?
-  State            Int?
-  CreationDate     DateTime? @db.DateTime
-  ModificationDate DateTime? @db.DateTime
+model T_TransOnlineRecords {
+  Id           Int       @default(autoincrement())
+  UPID         String?   @db.NVarChar(50)
+  Section      String?   @db.NVarChar(50)
+  Location     String?   @default("10", map: "DF_T_TransOnlineRecords_Location") @db.NVarChar(50)
+  NextPosition String?   @db.NVarChar(50)
+  Direction    Int?
+  Area         String?   @default("10", map: "DF_T_TransOnlineRecords_Area") @db.NVarChar(50)
+  RouteId      Int?
+  State        Int?
+  Timestamp    DateTime? @db.DateTime
 
   @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_StackInfo {
-  Id               Int       @default(autoincrement())
-  JobId            String?   @db.NVarChar(50)
-  StackId          String?   @db.NVarChar(50)
-  IsRainbow        Int?
-  BoardQuantity    Int?
-  TransferState    Int?
-  CreationDate     DateTime? @db.DateTime
-  ModificationDate DateTime? @db.DateTime
+model T_TypeConfig {
+  Id   Int     @default(autoincrement())
+  Name String? @db.NVarChar(50)
+  Type String? @db.NVarChar(50)
 
   @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_Stock {
-  Id               Int       @default(autoincrement())
-  Positioncode     String?   @db.NVarChar(50)
-  Area             String?   @db.NVarChar(50)
-  StackId          String?   @db.NVarChar(50)
-  Material         String?   @db.NVarChar(50)
-  ActualQuantity   Int?      @default(0, map: "DF_T_CCHS_Stock_ActualQuantity")
-  VirtualQuantity  Int?      @default(0, map: "DF_T_CCHS_Stock_VirtualQuantity")
-  ActualHight      Float?    @default(0, map: "DF_T_CCHS_Stock_ActualHight") @db.Real
-  VirtualHight     Float?    @default(0, map: "DF_T_CCHS_Stock_VirtualHight") @db.Real
-  State            Int?      @default(0, map: "DF_T_CCHS_Stock_State")
-  Description      String?   @db.NVarChar(250)
-  CreationDate     DateTime? @db.DateTime
-  ModificationDate DateTime? @db.DateTime
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_StockDetail {
-  Id               Int       @default(autoincrement())
-  Positioncode     String?   @db.NVarChar(50)
-  StackId          String?   @db.NVarChar(50)
-  Boardcode        String?   @db.NVarChar(50)
-  Material         String?   @db.NVarChar(50)
-  Layer            Int?
-  State            Int?
-  CreationDate     DateTime? @db.DateTime
-  ModificationDate DateTime? @db.DateTime
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_StorageInfo {
-  Id               Int       @default(autoincrement())
-  StorageCode      String?   @db.NVarChar(50)
-  StorageHeight    Int
-  Storagewidth     Int
-  Totalcapacity    Int?
-  Usedcapicty      Int?
-  Area             String    @db.NVarChar(50)
-  Xposition        Float     @db.Real
-  Yposition        Float     @db.Real
-  Storagetype      Int
-  Description      String?   @db.NVarChar(250)
-  CreationDate     DateTime? @db.DateTime
-  ModificationDate DateTime? @db.DateTime
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_TargetTypeConfig {
-  Id               Int       @default(autoincrement())
-  Number           Int?
-  Target           String?   @db.NVarChar(50)
-  CreationDate     DateTime? @db.DateTime
-  ModificationDate DateTime? @db.DateTime
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_TaskDetail {
-  Id               Int       @default(autoincrement())
-  JobId            String?   @db.NVarChar(50)
-  StackId          String?   @db.NVarChar(50)
-  StackType        Int?
-  Material         String?   @db.NVarChar(50)
-  Boardcode        String?   @db.NVarChar(50)
-  BoardType        Int?
-  SourcePosition   String?   @db.NVarChar(50)
-  TargetPosition   String?   @db.NVarChar(50)
-  SourcePositionH  Float?    @db.Real
-  TargetPositionH  Float?    @db.Real
-  Layer            Int?
-  Orientation      Int?
-  Tasktype         Int?
-  TransferState    Int?      @default(0, map: "DF_T_CCHS_TaskDetail_TransferState")
-  CreationDate     DateTime? @db.DateTime
-  ModificationDate DateTime? @db.DateTime
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model T_CCHS_TransHistory {
-  Id Int @default(autoincrement())
+model T_User {
+  id       Int     @default(autoincrement())
+  Account  String? @db.NChar(10)
+  Password String? @db.NChar(10)
+  Roles    String? @db.NChar(10)
 
   @@ignore
 }

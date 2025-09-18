@@ -19,7 +19,12 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"],
+      "@l/*": ["./lib/*"],
+      "@h/*": ["./hooks/*"],
+      "@p/*": ["./public/*"],
+      "@t/*":["./types/*"],
+      "@a/*":["./api/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "ecosystem.config.js"],

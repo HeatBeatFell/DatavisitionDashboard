@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import type { ScannerResponse,ScannerData } from '@/types/scanner'
+import type { ScannerResponse, ScannerData } from '@t/scanner'
 
 // 通用 fetcher
 const fetcher = (url: string) => fetch(url).then(res => res.json())
@@ -8,9 +8,9 @@ const fetcher = (url: string) => fetch(url).then(res => res.json())
 const defaultScannerData: ScannerData = {
   id: 0,
   Batch: '',
-  Length: '',
-  Width: '',
-  Thickness: '',
+  Length: 0,
+  Width: 0,
+  Thickness: 0,
   Consistency: 1,
   UPID: ''
 }
@@ -21,14 +21,14 @@ export function useScannerData(url: string = '/api/scanner') {
     url,
     fetcher,
     {
-      refreshInterval: 5000, // 5秒自动刷新
+      refreshInterval: 2000, // 5秒自动刷新
       revalidateOnFocus: true,
       revalidateOnReconnect: true
     }
   )
 
   return {
- data:data?.data ?? defaultScannerData,
+    data: data?.data ?? defaultScannerData,
     ...rest
   }
 }

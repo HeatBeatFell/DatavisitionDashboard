@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from '@h/use-mobile';
 
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
@@ -174,7 +174,7 @@ export function TotalProductionCard() {
         </CardAction>
       </CardHeader>
       <CardContent className="px-2 sm:px-6 sm:pt-6">
-        <ChartContainer config={chartConfig} className="aspect-auto h-120 w-full">
+        <ChartContainer config={chartConfig} className="aspect-auto h-130 w-full">
           <AreaChart data={filteredData}>
             <defs>
               <linearGradient id="fillprogram" x1="0" y1="0" x2="0" y2="1">

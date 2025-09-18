@@ -1,0 +1,26 @@
+{
+  "index": {
+    "title": "HomagChina-CCT Dashboard",
+    "desc": "HOMAG Dashboard is an application for monitoring and managing HOMAG machines."
+  },
+  "scannerCard": {
+    "length": "Length",
+    "width": "Width",
+    "Thicknes": "Thicknes",
+    "batch": "Batch Code",
+    "upid": "UPID",
+    "consistency": "Consistency",
+    "Inconsistency in uploading batches!": "Inconsistency in uploading batches!",
+    "The scanned batch does not match the current batch number, please check the product batch information": "The scanned batch does not match the current batch number, please check the product batch information",
+    "Scanning Results": "Scanning Results",
+    "Production Line": "Production Line",
+    "Last Scan": "Last Scan",
+    "Scanner Code": "Scanner Code",
+    "Standard Scope": "Standard Scope"
+  },
+  "LocaleSwitcher": {
+    "label": "Language",
+    "English": "English",
+    "Chinese": "Chinese"
+  }
+}

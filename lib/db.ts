@@ -1,37 +1,30 @@
 
-// 模拟 Prisma 客户端
-const mockPrismaClient = {
-  t_Scanner: {
-    findFirst: async (options: { orderBy?: { id: 'asc' | 'desc' } }) => {
-      console.log('查询选项:', options)
-      return {
-        id: 1,
-        Batch: "B12345",
-        Length: "100",
-        Width: "50",
-        Thickness: "10",
-        Consistency: 95,
-        UPID: "UP123456789"
-      }
-    }
-  },
-  $connect: async () => {
-    console.log('✅ 模拟数据库连接成功')
-    return true
-  },
-  $disconnect: async () => {
-    console.log('✅ 模拟数据库断开连接')
-    return true
-  }
-}
+import { PrismaClient } from './generated/prisma'
 
-// 导出模拟的 Prisma 客户端
-export const prisma = mockPrismaClient
+// 全局变量声明
+declare global {
+  // eslint-disable-next-line no-var
+  var prisma: PrismaClient | undefined
+}
+// 创建 Prisma 客户端实例
+export const prisma = globalThis.prisma || new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL
+    }
+  }
+})
+
+// 在开发环境中，将实例保存到全局变量以避免热重载时创建多个实例
+if (process.env.NODE_ENV !== 'production') {
+  globalThis.prisma = prisma
+}
 
 // 数据库连接测试函数
 export async function testConnection() {
   try {
     await prisma.$connect()
+    console.log('✅ 数据库连接成功')
     return true
   } catch (error) {
     console.error('❌ 数据库连接失败:', error)

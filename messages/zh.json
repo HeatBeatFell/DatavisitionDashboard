@@ -1,0 +1,27 @@
+{
+  "index": {
+    "title": "HomagChina-CCT 仪表盘",
+    "desc": "HOMAG 仪表盘是一个用于监控和管理 HOMAG 机器的应用程序。"
+  },
+  "scannerCard": {
+    "length": "长度",
+    "width": "宽度",
+    "Thicknes": "厚度",
+    "batch": "批次号",
+    "upid": "UPID",
+    "consistency": "一致性",
+    "Inconsistency in uploading batches!": "上线批次不一致！",
+    "Scanning Results": "扫描结果",
+    "The scanned batch does not match the current batch number, please check the product batch information": "扫描批次与当前批次号不一致，请检查产品批次信息",
+    "Production Line": "生产线",
+    "Last Scan": "最后扫描时间",
+    "Scanner Code": "扫描码",
+    "Standard Scope": "标准范围"
+  },
+  "LocaleSwitcher": {
+    "label": "语言",
+    "English": "English",
+    "Chinese": "中文"
+  }
+
+}
