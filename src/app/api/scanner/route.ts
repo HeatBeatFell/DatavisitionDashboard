@@ -1,6 +1,6 @@
 
 import { NextResponse } from 'next/server'
-import { prisma } from '@l/db'
+// import { prisma } from '@l/db'
 import dayjs from 'dayjs';
 import type { ScannerResponse } from '@t/scanner'
 
