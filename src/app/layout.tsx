@@ -12,8 +12,8 @@ import { getMessages, getLocale, getTranslations } from "next-intl/server";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "HomagChina",
-  description: "HomagChina Dashboard",
+  title: "Conflux",
+  description: "Conflux Dashboard",
   icons: {
     icon: "/favicon.ico",
   },

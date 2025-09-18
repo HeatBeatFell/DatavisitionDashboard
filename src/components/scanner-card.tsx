@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@radix-ui/themes";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-// import { useScannerData } from "@h/use-scanner";
+import { useScannerData } from "@h/use-scanner";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 

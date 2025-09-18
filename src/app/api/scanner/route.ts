@@ -27,6 +27,7 @@ export async function GET() {
         //     message: BoardInfo ? undefined : '未找到数据'
         // }
         // return NextResponse.json(response)
+        return NextResponse.json({ message: '测试数据', success: true, data: null })
     } catch (error) {
         const response: ScannerResponse = {
             data: null,
