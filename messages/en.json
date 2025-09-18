@@ -1,7 +1,7 @@
 {
   "index": {
-    "title": "HomagChina-CCT Dashboard",
-    "desc": "HOMAG Dashboard is an application for monitoring and managing HOMAG machines."
+    "title": "Conflux Dashboard",
+    "desc": "Conflux Dashboard is an application for monitoring and managing Conflux machines."
   },
   "scannerCard": {
     "length": "Length",
